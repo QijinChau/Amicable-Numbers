@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Javascript Practice Part 2</title>
+</head>
+<body style="background-color: #ffcc99; font-size: 20px; font-family: consolas";>
+<h1 style="text-align: center; font-size: 45px; font-family: verdana";> Amicable Numbers </h1>
+	<script language="javascript">
+		function isFactor(num, test) {
+			num = parseInt(num);
+			test = parseInt(test);
+			var remain;
+
+			if((num > 0 && test < 0) || (test === 0))
+				return false;
+
+			num = Math.abs(num);
+			test = Math.abs(test);
+			while(num >= test) {
+				remain = num - test;
+				num = num - test;
+			}
+
+			if(remain === 0)
+				return true;
+			else
+				return false;
+		}
+		
+		/* Test Code for isFactor
+		factorTest1 = isFactor(40, 5);
+		if(factorTest1) 
+			document.write("5 is a factor of 40!");
+		else
+			document.write("5 is not a factor of 40!");
+		
+		document.write("<br>");
+		factorTest2 = isFactor(-30, -6);
+		if(factorTest2) 
+			document.write("-5 is a factor of -30!");
+		else
+			document.write("-5 is not a factor of -30!");
+
+		document.write("<br>");
+		factorTest3 = isFactor(-30, 5);
+		if(factorTest3) 
+			document.write("5 is a factor of -30!");
+		else
+			document.write("5 is not a factor of -30!");
+
+		document.write("<br>");
+		factorTest4 = isFactor(15, 7);
+		if(factorTest4) 
+			document.write("7 is a factor of 15!");
+		else
+			document.write("7 is not a factor of 15!");
+		
+		document.write("<br>");
+		factorTest5 = isFactor(-2, 5);
+		if(factorTest4) 
+			document.write("5 is a factor of -2!");
+		else
+			document.write("5 is not a factor of -2!");
+		*/
+
+
+		function showFactors(show) {
+			for (i = 0; i < show.length; i++)
+				document.write(show[i] + " ");
+		}
+
+		/* Test code for showFactors
+		showTest1 = [1, 2, 4, 5];
+		showFactors(showTest1);
+
+		document.write("<br>");
+		showTest2 = [-1, 7, -8];
+		showFactors(showTest2);
+
+		document.write("<br>");
+		showTest3 = [2, 4, -6, -8, 10, 65];
+		showFactors(showTest3);
+		*/
+
+
+		function addFactors(toAdd) {
+			var sum = 0, num;
+			for (i = 0; i < toAdd.length; i++) {
+				num = parseInt(toAdd[i]);
+				sum += num;
+			}
+			return sum;
+		}
+
+		/*Test code for addFactors
+		addTest1 = [1, 2, 4, 5];
+		sum1 = addFactors(addTest1);
+		showFactors(addTest1);
+		document.write("<br>" + "Sum is: " + sum1);
+
+		document.write("<br>");
+		addTest2 = [-1, 7, -15];
+		sum2 = addFactors(addTest2);
+		showFactors(addTest2);
+		document.write("<br>" + "Sum is: " + sum2);
+
+		document.write("<br>");
+		addTest3 = [2, 4, -6, -8, 10, 65];
+		sum3 = addFactors(addTest3);
+		showFactors(addTest3);
+		document.write("<br>" + "Sum is: " + sum3);
+		*/		
+
+
+		function getFactors(num) {
+			var factors = [];
+			if(num > 0) {
+				for (i = 1; i <= num; i++) {
+					if(isFactor(num, i))
+						factors.push(i);
+				}
+			}
+			if(num < 0) {
+				for (j = num; j <= Math.abs(num); j++) {
+					if(isFactor(num, j))
+						factors.push(j);
+				}
+			}
+			return factors;
+		}
+
+		/* Test code for getFactors
+		getFactorsTest1 = [];
+		getFactorsTest1 = getFactors(30);
+		document.write("Factors of 30:" + "<br>")
+		showFactors(getFactorsTest1);
+		
+		document.write("<br>");
+		getFactorsTest2 = [];
+		getFactorsTest2 = getFactors(7);
+		document.write("Factors of 7:" + "<br>")
+		showFactors(getFactorsTest2);
+
+		document.write("<br>");
+		getFactorsTest3 = [];
+		getFactorsTest3 = getFactors(-13);
+		document.write("Factors of -13:" + "<br>")
+		showFactors(getFactorsTest3);
+
+		document.write("<br>");
+		getFactorsTest4 = [];
+		getFactorsTest4 = getFactors(-64);
+		document.write("Factors of -64:" + "<br>")
+		showFactors(getFactorsTest4);
+		*/
+	</script>
+
+	<form>
+		<br>
+		<label for="numbers">Enter First Number</label><br>
+		<input type="text" id="first" name="first"><br>
+		<label for="lucky">Enter Second Number</label><br>
+		<input type="text" id="second" name="second"><br><br>
+		<input type="button" value="Amicable?" onclick="isAmicable()">
+	</form>
+
+	<script language="javascript">
+		// event handler when button is clicked
+		function isAmicable() {
+			var firstNum = document.getElementById('first').value;
+			var secondNum = document.getElementById('second').value;
+
+			firstFactors = getFactors(firstNum);
+			secondFactors = getFactors(secondNum);
+
+			firstFactorsSum = addFactors(firstFactors) - firstNum;
+			secondFactorsSum = addFactors(secondFactors) - secondNum;
+
+			if((firstFactorsSum == secondNum) && (secondFactorsSum == firstNum))
+				alert(firstNum + " and " + secondNum + " are amicable!");
+			else
+				alert(firstNum + " and " + secondNum + " are not amicable.");
+		}
+	</script>
+
+</body>
+</html>
